@@ -15,7 +15,9 @@ public class escaner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.A)) { facturaActual.mostrar(); }
+
+
     }
 
     private void OnTriggerEnter(Collider other)

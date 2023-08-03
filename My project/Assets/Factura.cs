@@ -13,7 +13,9 @@ public class Factura : MonoBehaviour
         productos.Add(producto);
     }
 
-    public void mostrar() { 
+    public void mostrar() {
+
+        Debug.Log("FUNCIONA");
         factura.text = toString();
     }
 
@@ -21,7 +23,7 @@ public class Factura : MonoBehaviour
         string facturaString = string.Empty;
         facturaString += "Factura \n";
         foreach (var producto in productos)
-            facturaString += $"{producto.nombre}\n\t{producto.precio}";
+            facturaString += $"{producto.nombre}\n\t{producto.precio}\n";
         return facturaString;
     }
 }

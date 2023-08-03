@@ -8,7 +8,6 @@ public class cameraController : MonoBehaviour
 {
     public float sensitivity = 3f;
     public Transform selected = null;
-
     // Start is called before the first frame update
     void Start()
 
@@ -38,7 +37,6 @@ public class cameraController : MonoBehaviour
 
         if (selected != null && selected.GetComponent<Producto>() != null)
             selected.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5));
-        
     }
 
     public GameObject selection() { 
