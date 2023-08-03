@@ -20,7 +20,6 @@ public class escaner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("paso");
         if(other.gameObject.GetComponent<Producto>() != null)
             facturaActual.addProduct(other.gameObject.GetComponent<Producto>());
     }
