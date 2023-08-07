@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 61
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12386, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Keys:
+  - __PanelContainer__rootVisualContainer__81cf24738f3dccc47b5ed8d9c3835e16__MaterialGraphView__UnityEditor.Experimental.GraphView.GraphView+PersistedViewTransform
+  - __PanelContainer__rootVisualContainer__81cf24738f3dccc47b5ed8d9c3835e16__MaterialGraphView__UnityEditor.Experimental.GraphView.GraphView+PersistedSelection
+  m_Values:
+  - '{"position":{"x":256.0,"y":220.0,"z":0.0},"scale":{"x":0.2662874758243561,"y":0.2662874758243561,"z":1.0}}'
+  - '{"m_Version":98,"m_SelectedElementsArray":["39cacf35-b912-4782-9b0e-c50a414b6942","c507426a-f7aa-4ada-a6a5-c13d51d469d7"]}'
