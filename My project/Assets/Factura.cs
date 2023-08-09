@@ -8,9 +8,20 @@ public class Factura : MonoBehaviour
 {
     public List<Producto> productos = new List<Producto>();
     public TextMeshProUGUI factura;
+    public float total = 0;
 
     public void addProduct(Producto producto) { 
         productos.Add(producto);
+        total += producto.precio;
+    }
+
+    private int calcularCantidad(Producto producto) {
+        int cantidad = 0;
+        foreach (Producto p in productos) {
+            if(p.id == producto.id)
+                cantidad ++;   
+        }
+        return cantidad;
     }
 
     public void mostrar() {
@@ -22,8 +33,14 @@ public class Factura : MonoBehaviour
     public string toString() { 
         string facturaString = string.Empty;
         facturaString += "Factura \n";
+        List<int> yaContados = new List<int>();
         foreach (var producto in productos)
-            facturaString += $"{producto.nombre}\n\t{producto.precio}\n";
+            if (!yaContados.Contains(producto.id))
+            {
+                int cantidad = calcularCantidad(producto);
+                facturaString += $"{producto.nombre}\t{producto.precio}\t{cantidad}\t{cantidad*producto.precio}\n";
+                yaContados.Add(producto.id);
+            }
         return facturaString;
     }
 }

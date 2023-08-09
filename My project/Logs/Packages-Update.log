@@ -44,3 +44,11 @@ The following packages were updated:
   com.unity.collab-proxy from version 1.13.5 to 2.0.5
   com.unity.timeline from version 1.6.2 to 1.6.5
   com.unity.visualscripting from version 1.7.6 to 1.8.0
+
+=== Mon Aug  7 17:12:15 2023
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.shadergraph from version 12.1.7 to 12.1.12

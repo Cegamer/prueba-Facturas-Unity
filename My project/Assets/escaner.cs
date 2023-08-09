@@ -7,6 +7,8 @@ public class escaner : MonoBehaviour
 {
     // Start is called before the first frame update
     public Factura facturaActual;
+    public Computador computador;
+    public List<Vector3> posicionesEnCaja;
     void Start()
     {
         
@@ -22,8 +24,11 @@ public class escaner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<Producto>() != null)
+        if (other.gameObject.GetComponent<Producto>() != null)
+        {
             facturaActual.addProduct(other.gameObject.GetComponent<Producto>());
+            computador.mostrarFactura();
+        }
     }
 
 }
