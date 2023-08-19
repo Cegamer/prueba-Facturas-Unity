@@ -60,9 +60,9 @@
     <Compile Include="Assets\cameraController.cs" />
     <Compile Include="Assets\Computador.cs" />
     <Compile Include="Assets\Factura.cs" />
-    <Compile Include="Assets\escaner.cs" />
-    <Compile Include="Assets\GeneradorClientes.cs" />
     <Compile Include="Assets\Cliente.cs" />
+    <Compile Include="Assets\ControladorEscena.cs" />
+    <Compile Include="Assets\escaner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

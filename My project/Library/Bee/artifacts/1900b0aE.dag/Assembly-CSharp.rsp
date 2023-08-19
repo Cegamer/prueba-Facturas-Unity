@@ -354,9 +354,9 @@
 "Assets/cameraController.cs"
 "Assets/Cliente.cs"
 "Assets/Computador.cs"
+"Assets/ControladorEscena.cs"
 "Assets/escaner.cs"
 "Assets/Factura.cs"
-"Assets/GeneradorClientes.cs"
 "Assets/Producto.cs"
 -langversion:9.0
 

@@ -26,8 +26,13 @@ public class escaner : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Producto>() != null)
         {
-            facturaActual.addProduct(other.gameObject.GetComponent<Producto>());
-            computador.mostrarFactura();
+            var producto = other.gameObject.GetComponent<Producto>();
+            if (!producto.facturado)
+            {
+                producto.facturado = true;
+                facturaActual.addProduct(producto);
+                computador.mostrarFactura();
+            }
         }
     }
 

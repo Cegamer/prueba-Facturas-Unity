@@ -7,4 +7,5 @@ public class Producto : MonoBehaviour
     public int id;
     public int precio;
     public string nombre;
+    public bool facturado = false; 
 }

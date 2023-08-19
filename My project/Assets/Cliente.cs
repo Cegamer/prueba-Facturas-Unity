@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Cliente : MonoBehaviour
 {
-    public int skinId;
     List <Producto> carrito = new List <Producto> ();
     public escaner escaner;
     // Start is called before the first frame update
@@ -23,5 +22,8 @@ public class Cliente : MonoBehaviour
             p.gameObject.transform.position = escaner.posicionesEnCaja[i]; 
             i++;
         }
+    }
+    public void agregarProsducto(GameObject productoGO) {
+        carrito.Add(productoGO.GetComponent<Producto>());   
     }
 }
