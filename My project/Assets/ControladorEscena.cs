@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class ControladorEscena : MonoBehaviour
 {
-    public List<Vector3> posicionesFila;
     public List<GameObject> prefabClientes;
     public escaner escaner;
     public List<GameObject> listaProductos;
@@ -23,14 +22,17 @@ public class ControladorEscena : MonoBehaviour
     }
 
     void generarCliente() {
-        GameObject cliente = Instantiate(prefabClientes[0], posicionesFila[0],Quaternion.identity);
+        GameObject cliente = Instantiate(prefabClientes[0]);
         var clienteData = cliente.GetComponent<Cliente>();
         for(int i = 0; i < 10; i++)
         {
             var producto = Instantiate(listaProductos[Random.Range(0, listaProductos.Count)]);
             producto.transform.parent = cliente.transform;
             producto.transform.localPosition = new Vector3(-2f, -0.3f, 0);
+            producto.GetComponent<Rigidbody>().useGravity = true;
+            producto.GetComponent<Rigidbody>().isKinematic = false;
             clienteData.agregarProsducto(producto);
+
         }
     
     }

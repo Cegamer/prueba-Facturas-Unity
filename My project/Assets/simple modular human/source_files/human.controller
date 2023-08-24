@@ -12,15 +12,15 @@ AnimatorController:
   - m_Name: legs
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 3
+    m_DefaultInt: 1
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: arms
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 3
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: legs
@@ -4022,7 +4022,7 @@ AnimatorStateMachine:
     m_Position: {x: 288, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102217692269888000}
-    m_Position: {x: 530, y: -240, z: 0}
+    m_Position: {x: 480, y: -530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102536700601998196}
     m_Position: {x: 672, y: -144, z: 0}

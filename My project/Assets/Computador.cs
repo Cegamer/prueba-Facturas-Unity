@@ -6,6 +6,9 @@ using UnityEngine;
 public class Computador : MonoBehaviour
 {
     public escaner escaner;
+    public Factura facturaActual;
+
+
     public TextMeshProUGUI textoProductos;
     public TextMeshProUGUI textoDinero;
     // Start is called before the first frame update
@@ -21,8 +24,8 @@ public class Computador : MonoBehaviour
     }
 
     public void mostrarFactura() {
-        textoProductos.text = escaner.facturaActual.toString();
-        textoDinero.text = "Total: "+ escaner.facturaActual.total;
+        textoProductos.text = facturaActual.toString();
+        textoDinero.text = "Total: "+ facturaActual.total;
     }
 }
 

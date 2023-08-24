@@ -6,7 +6,6 @@ using UnityEngine;
 public class escaner : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Factura facturaActual;
     public Computador computador;
     public List<Vector3> posicionesEnCaja;
     void Start()
@@ -17,7 +16,7 @@ public class escaner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A)) { facturaActual.mostrar(); }
+        if (Input.GetKeyDown(KeyCode.A)) { computador.facturaActual.mostrar(); }
 
 
     }
@@ -30,7 +29,7 @@ public class escaner : MonoBehaviour
             if (!producto.facturado)
             {
                 producto.facturado = true;
-                facturaActual.addProduct(producto);
+                computador.facturaActual.addProduct(producto);
                 computador.mostrarFactura();
             }
         }
