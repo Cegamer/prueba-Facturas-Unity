@@ -9,6 +9,7 @@ public class ControladorEscena : MonoBehaviour
     public List<GameObject> prefabClientes;
     public escaner escaner;
     public List<GameObject> listaProductos;
+    public Cliente clienteActual;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,22 +19,25 @@ public class ControladorEscena : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.B)) { generarCliente(); }
+        if(Input.GetKeyDown(KeyCode.B)) { generarCliente(); }
     }
 
-    void generarCliente() {
-        GameObject cliente = Instantiate(prefabClientes[0]);
-        var clienteData = cliente.GetComponent<Cliente>();
-        for(int i = 0; i < 10; i++)
+    public void generarCliente() {
+        if (clienteActual == null)
         {
-            var producto = Instantiate(listaProductos[Random.Range(0, listaProductos.Count)]);
-            producto.transform.parent = cliente.transform;
-            producto.transform.localPosition = new Vector3(-2f, -0.3f, 0);
-            producto.GetComponent<Rigidbody>().useGravity = true;
-            producto.GetComponent<Rigidbody>().isKinematic = false;
-            clienteData.agregarProsducto(producto);
+            GameObject cliente = Instantiate(prefabClientes[0]);
+            clienteActual = cliente.GetComponent<Cliente>();
+            var clienteData = cliente.GetComponent<Cliente>();
+            for (int i = 0; i < 10; i++)
+            {
+                var producto = Instantiate(listaProductos[Random.Range(0, listaProductos.Count - 1)]);
+                producto.transform.parent = cliente.transform;
+                producto.transform.localPosition = new Vector3(-2f, -0.3f, 0);
+                producto.GetComponent<Rigidbody>().useGravity = true;
+                producto.GetComponent<Rigidbody>().isKinematic = true;
+                clienteData.agregarProsducto(producto);
 
+            }
         }
-    
     }
 }

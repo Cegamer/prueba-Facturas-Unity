@@ -8,8 +8,10 @@ public class escaner : MonoBehaviour
     // Start is called before the first frame update
     public Computador computador;
     public List<Vector3> posicionesEnCaja;
+    public ControladorEscena controladorEscena;
     void Start()
     {
+        controladorEscena = FindObjectOfType<ControladorEscena>();
         
     }
 
@@ -31,8 +33,12 @@ public class escaner : MonoBehaviour
                 producto.facturado = true;
                 computador.facturaActual.addProduct(producto);
                 computador.mostrarFactura();
+                controladorEscena.clienteActual.vaciarCarrito();
+                Debug.Log(controladorEscena.clienteActual.carrito.Count);
             }
         }
+
     }
 
 }
+

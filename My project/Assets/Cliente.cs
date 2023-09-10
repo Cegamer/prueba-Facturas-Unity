@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class Cliente : MonoBehaviour
 {
-    List <Producto> carrito = new List <Producto> ();
-    
+    public List<Producto> carrito = new List<Producto>();
+
     public escaner escaner;
-    
+
     public Vector3[] Posiciones = new Vector3[10];
     public Vector3[] Rotaciones = new Vector3[10];
     public int Actual = 0, siguiente = 1;
 
     public Animator animator;
-    
+    public bool estaEnCaja = false;
+
     // Start is called before the first frame update
     void Start()
-        
+
     {
         this.transform.position = Posiciones[0];
         this.transform.rotation = Quaternion.Euler(Rotaciones[0]);
+        escaner = FindAnyObjectByType<escaner>();
     }
 
     // Update is called once per frame
@@ -27,12 +29,19 @@ public class Cliente : MonoBehaviour
     {
         seguirRuta();
     }
-    
+
     public void vaciarCarrito() {
-        int i = 0;
-        foreach (Producto p in carrito) {
-            p.gameObject.transform.position = escaner.posicionesEnCaja[i]; 
-            i++;
+        if (carrito.Count > 0)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                var p = carrito[i];
+                p.gameObject.transform.position = escaner.posicionesEnCaja[i];
+                p.transform.parent = null;
+                carrito.Remove(p);
+                i++;
+            }
+            Debug.Log(carrito.Count);
         }
     }
     public void agregarProsducto(GameObject productoGO) {
@@ -62,8 +71,19 @@ public class Cliente : MonoBehaviour
         }
     }
 
-    public void llegarACaja() {
-        vaciarCarrito();
-        animator.SetInteger("legs",5);
+    public void llegarACaja()
+    {
+        if (!estaEnCaja)
+        {
+            estaEnCaja = true;
+            vaciarCarrito();
+            animator.SetInteger("legs", 5);
+        }
+        
+    }
+
+    public void irse()
+    {
+        Destroy(this.gameObject);
     }
 }

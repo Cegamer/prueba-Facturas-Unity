@@ -27,6 +27,16 @@ public class Computador : MonoBehaviour
         textoProductos.text = facturaActual.toString();
         textoDinero.text = "Total: "+ facturaActual.total;
     }
+
+    public void imprimir()
+    {
+        if (escaner.controladorEscena.clienteActual.carrito.Count < 1)
+        {
+            Debug.Log("Llego");
+            escaner.controladorEscena.clienteActual.irse();
+            escaner.controladorEscena.generarCliente();
+        }
+    }
 }
 
 
