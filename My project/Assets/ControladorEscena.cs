@@ -6,26 +6,25 @@ using UnityEngine.UIElements;
 
 public class ControladorEscena : MonoBehaviour
 {
-    public List<GameObject> prefabClientes;
+    public GameObject prefabClientes;
     public escaner escaner;
     public List<GameObject> listaProductos;
     public Cliente clienteActual;
     // Start is called before the first frame update
     void Start()
     {
-  
+        generarCliente();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B)) { generarCliente(); }
     }
 
     public void generarCliente() {
         if (clienteActual == null)
         {
-            GameObject cliente = Instantiate(prefabClientes[0]);
+            GameObject cliente = Instantiate(prefabClientes);
             clienteActual = cliente.GetComponent<Cliente>();
             var clienteData = cliente.GetComponent<Cliente>();
             for (int i = 0; i < 10; i++)

@@ -9,7 +9,9 @@ public class Factura : MonoBehaviour
     public List<Producto> productos = new List<Producto>();
     public TextMeshProUGUI factura;
     public float total = 0;
+    public int idFactura;
 
+    public Factura(int idFactura) { this.idFactura = idFactura; }
     public void addProduct(Producto producto) { 
         productos.Add(producto);
         total += producto.precio;
@@ -24,15 +26,10 @@ public class Factura : MonoBehaviour
         return cantidad;
     }
 
-    public void mostrar() {
-
-        Debug.Log("FUNCIONA");
-        factura.text = toString();
-    }
 
     public string toString() { 
         string facturaString = string.Empty;
-        facturaString += "Factura \n";
+        facturaString += "Factura "+idFactura+"\n";
         List<int> yaContados = new List<int>();
         foreach (var producto in productos)
             if (!yaContados.Contains(producto.id))

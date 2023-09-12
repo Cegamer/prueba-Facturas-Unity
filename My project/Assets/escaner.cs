@@ -18,8 +18,6 @@ public class escaner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A)) { computador.facturaActual.mostrar(); }
-
 
     }
 
@@ -34,7 +32,6 @@ public class escaner : MonoBehaviour
                 computador.facturaActual.addProduct(producto);
                 computador.mostrarFactura();
                 controladorEscena.clienteActual.vaciarCarrito();
-                Debug.Log(controladorEscena.clienteActual.carrito.Count);
             }
         }
 

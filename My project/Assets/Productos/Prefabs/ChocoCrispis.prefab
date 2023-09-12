@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 9054724801924390162}
   - component: {fileID: 3496959925692897738}
   - component: {fileID: 8025971334063414612}
-  - component: {fileID: 2688606484978891248}
   - component: {fileID: 984041924588557302}
+  - component: {fileID: 1932005401744409993}
   m_Layer: 0
   m_Name: ChocoCrispis
   m_TagString: Untagged
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754516399677269361}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0.000000014086254}
   m_LocalPosition: {x: -0.6866621, y: 1.4659959, z: -16.691998}
   m_LocalScale: {x: 19.514858, y: 9.843919, z: 28.574339}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
 --- !u!33 &9054724801924390162
 MeshFilter:
@@ -102,27 +102,6 @@ MonoBehaviour:
   precio: 5000
   nombre: ChocoCrispis
   facturado: 0
---- !u!65 &2688606484978891248
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754516399677269361}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.020000007, y: 0.020000018, z: 0.020991474}
-  m_Center: {x: -2.4371962e-16, y: -4.679578e-16, z: 0.0000000013969842}
 --- !u!54 &984041924588557302
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,23 +109,25 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754516399677269361}
-  serializedVersion: 4
+  serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1932005401744409993
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754516399677269361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.020000007, y: 0.02000002, z: 0.020991474}
+  m_Center: {x: 4.857612e-24, y: -9.668068e-16, z: 0.0000000013969842}

@@ -21,7 +21,7 @@ public class Cliente : MonoBehaviour
     {
         this.transform.position = Posiciones[0];
         this.transform.rotation = Quaternion.Euler(Rotaciones[0]);
-        escaner = FindAnyObjectByType<escaner>();
+        escaner = FindObjectOfType<escaner>();
     }
 
     // Update is called once per frame
@@ -35,11 +35,15 @@ public class Cliente : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                var p = carrito[i];
-                p.gameObject.transform.position = escaner.posicionesEnCaja[i];
-                p.transform.parent = null;
-                carrito.Remove(p);
-                i++;
+                try
+                {
+                    var p = carrito[i];
+                    p.gameObject.transform.position = escaner.posicionesEnCaja[i];
+                    p.transform.parent = null;
+                    carrito.Remove(p);
+                    i++;
+                }
+                catch { }
             }
             Debug.Log(carrito.Count);
         }
