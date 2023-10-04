@@ -56,7 +56,10 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Grid.cs" />
     <Compile Include="Assets\simple modular human\scripts\Test_script.cs" />
+    <Compile Include="Assets\MenuPrincipal.cs" />
+    <Compile Include="Assets\Construible.cs" />
     <Compile Include="Assets\Producto.cs" />
     <Compile Include="Assets\cameraController.cs" />
     <Compile Include="Assets\simple modular human\scripts\clothing.cs" />
@@ -65,7 +68,6 @@
     <Compile Include="Assets\Cliente.cs" />
     <Compile Include="Assets\ControladorEscena.cs" />
     <Compile Include="Assets\escaner.cs" />
-    <Compile Include="Assets\MenuPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
