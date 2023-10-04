@@ -16,6 +16,7 @@ public interface IConstruible
     public int getEstadoRotacion();
     public int getCuadrosHorizontal();
     public int getCuadrosVertical();
+    public bool puedeColocarse(GridSquare[] cuadrosAOcupar);
 
 }
 class soporte : IConstruible
@@ -29,7 +30,14 @@ class soporte : IConstruible
     public int getCuadrosHorizontal() { return cuadrosHorizontal; }
     public int getCuadrosVertical() { return cuadrosVertical; }
 
-    public soporte() { cuadrosHorizontal = 1; cuadrosVertical = 3; }
+    public bool puedeColocarse(GridSquare[] cuadrosAOcupar)
+    {
+        foreach (var cuadro in cuadrosAOcupar)
+            if (cuadro == null || cuadro.ocupado)
+                return false;    
+        return true;
+    }
+    public soporte() { cuadrosHorizontal = 3; cuadrosVertical = 1; }
     public void colocar(GridSquare[] cuadrosAOcupar) { }
     public void rotar(int rotado)
     {

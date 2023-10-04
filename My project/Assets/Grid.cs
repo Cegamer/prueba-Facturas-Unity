@@ -38,7 +38,7 @@ public class GridSquare : MonoBehaviour
 {
     GameObject gridObject = null;
     int gridIndexX, gridIndexY;
-    bool ocupado = false;
+    public bool ocupado = false;
     IConstruible objeto = null;
     public Grid parent;
     public void build(GameObject gridObject, int gridIndexX, int gridIndexY, Grid parent)
@@ -49,11 +49,11 @@ public class GridSquare : MonoBehaviour
         this.parent = parent;
     }
 
-    void actualizarOcupado()
+    void actualizarOcupado(GridSquare[] cuadrosAOcupar)
     {
-        if (!ocupado)
-        {
+        foreach(var cuadro in cuadrosAOcupar) { 
             gridObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            this.ocupado = true;
         }
     }
 
@@ -63,10 +63,9 @@ public class GridSquare : MonoBehaviour
     }
     public void colocar()
     {
-        if (!ocupado)
-        {
-            actualizarOcupado();
-        }
+        var a = checkAvailability ();
+        if (a != null)
+            actualizarOcupado(a);
     }
     public void preview(IConstruible objetoe)
     {
@@ -78,10 +77,66 @@ public class GridSquare : MonoBehaviour
     }
 
 
-    public void checkAvailability()
+    public GridSquare[] checkAvailability()
     {
-      //Implementar
+        if (objeto != null)
+        {
+            int width = objeto.getCuadrosHorizontal();
+            int height = objeto.getCuadrosVertical();
+            int rotation = objeto.getEstadoRotacion();
+
+            // Coordenadas del cuadro principal
+            int mainX = gridIndexX;
+            int mainY = gridIndexY;
+
+            // Ajustar la posición del cuadro principal según la rotación
+            if (rotation == 1)
+            {
+                mainX -= width - 1;
+            }
+            else if (rotation == 2)
+            {
+                mainX -= width - 1;
+                mainY -= height - 1;
+            }
+            else if (rotation == 3)
+            {
+                mainY -= height - 1;
+            }
+
+            // Crear un array de cuadros que ocupará el objeto
+            GridSquare[] cuadrosAOcupar = new GridSquare[width * height];
+            int index = 0;
+            for (int x = mainX; x < mainX + width; x++)
+            {
+                for (int y = mainY; y < mainY + height; y++)
+                {
+                    if (x >= 0 && x < parent.grid.GetLength(0) && y >= 0 && y < parent.grid.GetLength(1))
+                    {
+                        cuadrosAOcupar[index] = parent.grid[x, y];
+                        index++;
+                    }
+                }
+            }
+
+            // Verificar si el objeto puede colocarse en los cuadros especificados
+            bool puedeColocarse = objeto.puedeColocarse(cuadrosAOcupar);
+
+            // Cambiar el color del objeto en consecuencia
+            if (puedeColocarse)
+            {
+                objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.green;
+                return cuadrosAOcupar;
+            }
+            else
+            {
+                objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            
+        }
+        return null;
     }
+
 }
 
 
