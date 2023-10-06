@@ -52,8 +52,8 @@ public class GridSquare : MonoBehaviour
     void actualizarOcupado(GridSquare[] cuadrosAOcupar)
     {
         foreach(var cuadro in cuadrosAOcupar) { 
-            gridObject.GetComponent<MeshRenderer>().material.color = Color.red;
-            this.ocupado = true;
+            cuadro.gridObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            cuadro.ocupado = true;
         }
     }
 
@@ -61,18 +61,21 @@ public class GridSquare : MonoBehaviour
     {
         return new int[] { gridIndexX, gridIndexY };
     }
-    public void colocar()
+    public bool colocar()
     {
         var a = checkAvailability ();
         if (a != null)
+        {
             actualizarOcupado(a);
+            return true;
+        }
+        return false;
     }
     public void preview(IConstruible objetoe)
     {
         objetoe.getGameObject().transform.SetParent(gridObject.transform);
         objetoe.getGameObject().transform.localPosition = Vector3.zero;
         objeto = objetoe;
-        Debug.Log(objetoe.getEstadoRotacion());
         checkAvailability();
     }
 

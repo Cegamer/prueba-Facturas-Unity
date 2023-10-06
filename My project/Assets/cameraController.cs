@@ -99,8 +99,8 @@ public class cameraController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            selected.GetComponent<GridSquare>().colocar();
-            construibleSeleccionado = null;
+            if(selected.GetComponent<GridSquare>().colocar())
+                construibleSeleccionado = null;
         }
     }
 
