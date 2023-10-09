@@ -8,8 +8,7 @@ public class Cliente : MonoBehaviour
 
     public escaner escaner;
 
-    public Vector3[] Posiciones = new Vector3[10];
-    public Vector3[] Rotaciones = new Vector3[10];
+    public GameObject[] Posiciones;
     public int Actual = 0, siguiente = 1;
 
     public Animator animator;
@@ -19,8 +18,8 @@ public class Cliente : MonoBehaviour
     void Start()
 
     {
-        this.transform.position = Posiciones[0];
-        this.transform.rotation = Quaternion.Euler(Rotaciones[0]);
+        this.transform.position = Posiciones[0].GetComponent<Transform>().position ;
+        this.estaEnCaja = false;
         escaner = FindObjectOfType<escaner>();
     }
 
@@ -56,7 +55,7 @@ public class Cliente : MonoBehaviour
     {
         if (Actual < 9)
         {
-            if (transform.position == Posiciones[siguiente])
+            if (transform.position == Posiciones[siguiente].GetComponent<Transform>().position)
             {
                 Actual = siguiente;
                 siguiente++;
@@ -64,13 +63,12 @@ public class Cliente : MonoBehaviour
 
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, Posiciones[siguiente], 3 * Time.deltaTime);
-                transform.rotation = Quaternion.Euler(Rotaciones[Actual]);
+                transform.position = Vector3.MoveTowards(transform.position, Posiciones[siguiente].GetComponent<Transform>().position, 10 * Time.deltaTime);
+                transform.LookAt(Posiciones[siguiente].GetComponent<Transform>());
             }
         }
         else
         {
-            transform.rotation = Quaternion.Euler(Rotaciones[9]);
             llegarACaja();
         }
     }

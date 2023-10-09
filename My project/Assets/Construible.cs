@@ -11,15 +11,17 @@ public interface IConstruible
 {
 
     public void colocar(GridSquare[] cuadrosAOcupar) { }
-    public void rotar() { }
+    public void rotar(int rotado) { }
     public GameObject getGameObject();
     public int getEstadoRotacion();
     public int getCuadrosHorizontal();
     public int getCuadrosVertical();
     public bool puedeColocarse(GridSquare[] cuadrosAOcupar);
+    public void setGameObject(GameObject go);
+    public void preview();
 
 }
-class soporte : IConstruible
+abstract class soporte : IConstruible
 {
     public int cuadrosHorizontal;
     public int cuadrosVertical;
@@ -37,10 +39,10 @@ class soporte : IConstruible
                 return false;    
         return true;
     }
-    public soporte() { cuadrosHorizontal = 3; cuadrosVertical = 1; }
     public void colocar(GridSquare[] cuadrosAOcupar) { }
-    public void rotar(int rotado)
+    public virtual void rotar(int rotado)
     {
+        if (rotado > 3) rotado = 0;
         estadoRotacion = rotado;
         switch (rotado)
         {
@@ -54,23 +56,78 @@ class soporte : IConstruible
                 objetoConstruible.transform.rotation = Quaternion.Euler(-90, 180, 0);
                 break;
             case 3:
-                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 360, 0);
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 270, 0);
                 break;
         }
     }
     public GameObject getGameObject() { return objetoConstruible; }
     public void setGameObject(GameObject go) { objetoConstruible = go; Debug.Log("Definido objeto como " + go); }
+    public abstract void preview();
 
 }
 
 class soporteLargo:soporte {
-    public soporteLargo() { cuadrosHorizontal = 3; cuadrosVertical = 1; }
+    public soporteLargo() { cuadrosHorizontal = 1; cuadrosVertical = 3; }
+    public override void preview()
+    {
+        objetoConstruible.transform.localPosition = Vector3.zero;
+    }
 }
 
 class soporteSnacks : soporte {
-    public soporteSnacks() { cuadrosHorizontal = 1; cuadrosVertical = 1; } 
+    public soporteSnacks() { cuadrosHorizontal = 1; cuadrosVertical = 1; }
+    public override void preview()
+    {
+        objetoConstruible.transform.localPosition = new Vector3(0,12,0);
+    }
+    public override void rotar(int rotado)
+    {
+        if (rotado > 3) rotado = 0;
+        estadoRotacion = rotado;
+        switch (rotado)
+        {
+            case 0:
+                objetoConstruible.transform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case 1:
+                objetoConstruible.transform.rotation = Quaternion.Euler(0, 90, 0);
+                break;
+            case 2:
+                objetoConstruible.transform.rotation = Quaternion.Euler(0, 180, 0);
+                break;
+            case 3:
+                objetoConstruible.transform.rotation = Quaternion.Euler(0, 270, 0);
+                break;
+        }
+    }
 }
 class soporteBebidas : soporte {
     public soporteBebidas() { cuadrosHorizontal = 1; cuadrosVertical = 1; }
+    public override void preview()
+    {
+        objetoConstruible.transform.localPosition = new Vector3(0,1,0);
+        objetoConstruible.transform.localScale = new Vector3(51,51, 1450.151f);
+    }
+    public override void rotar(int rotado)
+    {
+        if (rotado > 3) rotado = 0;
+        estadoRotacion = rotado;
+        switch (rotado)
+        {
+            case 0:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 0, 180);
+                break;
+            case 1:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 90, 180);
+                break;
+            case 2:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 180, 180);
+                break;
+            case 3:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 270, 180);
+                break;
+        }
+    }
+
 }
 

@@ -6,6 +6,7 @@ public class Grid : MonoBehaviour
 {
     public GridSquare[,] grid = new GridSquare[20, 20];
     public GameObject gridObject;
+    public cameraController cameraController;
 
     // Start is called before the first frame update
     void Start()
@@ -25,19 +26,56 @@ public class Grid : MonoBehaviour
             y += 5;
         }
 
+        GridSquare[] inicial = new GridSquare[] { grid[0, 0],grid[0, 1],grid[0, 2],grid[1, 0],grid[1, 1],grid[1, 2]};
+        actualizarOcupado(inicial);
+        IConstruible soporteDefault1 = new soporteLargo();
+        soporteDefault1.setGameObject(Instantiate(cameraController.construiblesGO[0]));
+        soporteDefault1.rotar(1);
+        grid[3, 1].preview(soporteDefault1);
+        grid[3, 1].colocar();
+        cameraController.construibles.Add(soporteDefault1);
+
+        IConstruible soporteDefault2 = new soporteLargo();
+        soporteDefault2.setGameObject(Instantiate(cameraController.construiblesGO[0]));
+        soporteDefault2.rotar(1);
+
+        grid[3, 3].preview(soporteDefault2);
+        grid[3, 3].colocar();
+        cameraController.construibles.Add(soporteDefault2);
+
+        IConstruible soporteDefault3 = new soporteLargo();
+        soporteDefault3.setGameObject(Instantiate(cameraController.construiblesGO[0]));
+        soporteDefault3.rotar(1);
+        grid[3, 5].preview(soporteDefault3);
+        grid[3, 5].colocar();
+        cameraController.construibles.Add(soporteDefault3);
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+
+
+        
     }
+    public void actualizarOcupado(GridSquare[] cuadrosAOcupar)
+    {
+        foreach (var cuadro in cuadrosAOcupar)
+        {
+            cuadro.gridObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            cuadro.ocupado = true;
+        }
+    }
+    public void setVisible() { foreach (var a in grid) { a.gridObject.GetComponent<MeshRenderer>().enabled = true; } }
+    public void setInvisible() { foreach (var a in grid) { a.gridObject.GetComponent<MeshRenderer>().enabled = false; } }
 }
 
 public class GridSquare : MonoBehaviour
 {
-    GameObject gridObject = null;
-    int gridIndexX, gridIndexY;
+    public GameObject gridObject = null;
+    public int gridIndexX, gridIndexY;
     public bool ocupado = false;
     IConstruible objeto = null;
     public Grid parent;
@@ -49,32 +87,28 @@ public class GridSquare : MonoBehaviour
         this.parent = parent;
     }
 
-    void actualizarOcupado(GridSquare[] cuadrosAOcupar)
-    {
-        foreach(var cuadro in cuadrosAOcupar) { 
-            cuadro.gridObject.GetComponent<MeshRenderer>().material.color = Color.red;
-            cuadro.ocupado = true;
-        }
-    }
-
     public int[] getGridPos()
     {
         return new int[] { gridIndexX, gridIndexY };
     }
     public bool colocar()
     {
-        var a = checkAvailability ();
+        var a = checkAvailability();
         if (a != null)
         {
-            actualizarOcupado(a);
+            parent.actualizarOcupado(a);
+            if(objeto.getGameObject().GetComponent<MeshRenderer>() != null)
+                objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
             return true;
         }
         return false;
     }
     public void preview(IConstruible objetoe)
     {
+
         objetoe.getGameObject().transform.SetParent(gridObject.transform);
-        objetoe.getGameObject().transform.localPosition = Vector3.zero;
+        objetoe.preview();
+        objetoe.rotar(objetoe.getEstadoRotacion());
         objeto = objetoe;
         checkAvailability();
     }
@@ -93,31 +127,47 @@ public class GridSquare : MonoBehaviour
             int mainY = gridIndexY;
 
             // Ajustar la posición del cuadro principal según la rotación
-            if (rotation == 1)
-            {
-                mainX -= width - 1;
-            }
-            else if (rotation == 2)
-            {
-                mainX -= width - 1;
-                mainY -= height - 1;
-            }
-            else if (rotation == 3)
-            {
-                mainY -= height - 1;
-            }
-
-            // Crear un array de cuadros que ocupará el objeto
             GridSquare[] cuadrosAOcupar = new GridSquare[width * height];
             int index = 0;
-            for (int x = mainX; x < mainX + width; x++)
+
+            for (int x = 0; x < width; x++)
             {
-                for (int y = mainY; y < mainY + height; y++)
+                for (int y = 0; y < height; y++)
                 {
-                    if (x >= 0 && x < parent.grid.GetLength(0) && y >= 0 && y < parent.grid.GetLength(1))
+                    int xPos, yPos;
+
+                    if (rotation == 0)
                     {
-                        cuadrosAOcupar[index] = parent.grid[x, y];
+                        xPos = mainX + x;
+                        yPos = mainY - y;
+                    }
+                    else if (rotation == 1)
+                    {
+                        xPos = mainX + y;
+                        yPos = mainY + x;
+                    }
+                    else if (rotation == 2)
+                    {
+                        xPos = mainX - x;
+                        yPos = mainY + y;
+                    }
+                    else // rotation == 3
+                    {
+                        xPos = mainX - y;
+                        yPos = mainY - x;
+                    }
+
+                    // Verificar los límites de la cuadrícula antes de asignar a cuadrosAOcupar
+                    if (xPos >= 0 && xPos < parent.grid.GetLength(0) && yPos >= 0 && yPos < parent.grid.GetLength(1))
+                    {
+                        cuadrosAOcupar[index] = parent.grid[xPos, yPos];
                         index++;
+                    }
+                    else
+                    {
+                        // Si el objeto se encuentra fuera de los límites de la cuadrícula, no puede colocarse.
+                        objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.red;
+                        return null;
                     }
                 }
             }
@@ -137,12 +187,14 @@ public class GridSquare : MonoBehaviour
             }
             else
             {
-                objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.red;
+                if (objeto.getGameObject().GetComponent<MeshRenderer>() != null)
+                    objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.red;
             }
-            
         }
+
         return null;
     }
+
 
 }
 

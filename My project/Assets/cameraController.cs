@@ -10,13 +10,16 @@ public class cameraController : MonoBehaviour
 {
     public float sensitivity = 3f, velocidadMoviminento = 5f;
     public Transform selected = null;
-    Vector3 defaultPosition = new Vector3(-0.84799999f, 3.76999998f, -9.81799984f);
+    Vector3 defaultPosition = new Vector3(3.81f, 3.68f, -1.02f);
+    public Grid grid;
 
     public GameObject[] construiblesGO;
+    public GameObject estructuraGO;
     public List<IConstruible> construibles = new List<IConstruible>();
     public IConstruible construibleSeleccionado;
 
     public EstadosVista estadoVista;
+    public GameObject canvasConstruccion;
     public enum EstadosVista : int
     {
         ModoCajero = 0,
@@ -27,7 +30,10 @@ public class cameraController : MonoBehaviour
     void Start()
 
     {
-        estadoVista = EstadosVista.ModoConstruccion;
+      
+        estadoVista = EstadosVista.ModoCajero;
+        
+
 
     }
 
@@ -52,13 +58,19 @@ public class cameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
             cambiarEstadoVista(EstadosVista.ModoCajero);
+        if(Input.GetKeyDown(KeyCode.C)) cambiarEstadoVista(EstadosVista.ModoConstruccion);
 
         if (estadoVista == EstadosVista.ModoConstruccion)
         {
+            canvasConstruccion.SetActive(true);
+            grid.setVisible();
+            estructuraGO.GetComponent<MeshRenderer>().enabled = false;
             var a = retornarObjetoRaycast();
-            if(a != null)
-                selected =a.transform;
+            if (a != null)
+                selected = a.transform;
             ModoConstruccion();
+        }
+        else { estructuraGO.GetComponent<MeshRenderer>().enabled = true; canvasConstruccion.SetActive(false); grid.setInvisible();
         }
 
         ajustarVistaCamara();
@@ -76,8 +88,21 @@ public class cameraController : MonoBehaviour
         selected.transform.position = worldPosition;
     }
 
-    public void setConstructionObject(int objetoId) {
-        var sop = new soporte();
+    public void setConstructionObject(int objetoId)
+    {
+        IConstruible sop = null;
+        switch (objetoId)
+        {
+            case 0:
+                sop = new soporteLargo(); break;
+            case 1:
+                sop = new soporteBebidas(); break;
+            case 2:
+                sop = new soporteSnacks(); break;
+        }
+        
+        if (sop == null) return;
+
         sop.setGameObject(Instantiate(construiblesGO[objetoId]));
         construibles.Add(sop);
         construibleSeleccionado = sop;
@@ -98,8 +123,13 @@ public class cameraController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if(selected.GetComponent<GridSquare>().colocar())
+            if (selected.GetComponent<GridSquare>().colocar())
                 construibleSeleccionado = null;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            construibleSeleccionado.rotar(construibleSeleccionado.getEstadoRotacion() + 1);
+            Debug.Log(construibleSeleccionado.getEstadoRotacion());
         }
     }
 
@@ -126,14 +156,14 @@ public class cameraController : MonoBehaviour
                 break;
 
             case EstadosVista.ModoComputador:
-                this.transform.position = new Vector3(2.53299999f, 3.46f, -9.38199997f);
+                this.transform.position = new Vector3(7.96f, 3.46f, 1.45f);
                 this.transform.rotation = Quaternion.Euler(0f, 83.672081f, 0f);
                 Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.lockState = CursorLockMode.None;
                 break;
 
             case EstadosVista.ModoConstruccion:
-                this.transform.position = new Vector3(43.4000015f, 30.2000008f, -8.89999962f);
+                this.transform.position = new Vector3(46.8f, 43.3f, -22f);
                 this.transform.rotation = Quaternion.Euler(45, 0, 0);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
