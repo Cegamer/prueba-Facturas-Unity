@@ -63,4 +63,14 @@ class soporte : IConstruible
 
 }
 
+class soporteLargo:soporte {
+    public soporteLargo() { cuadrosHorizontal = 3; cuadrosVertical = 1; }
+}
+
+class soporteSnacks : soporte {
+    public soporteSnacks() { cuadrosHorizontal = 1; cuadrosVertical = 1; } 
+}
+class soporteBebidas : soporte {
+    public soporteBebidas() { cuadrosHorizontal = 1; cuadrosVertical = 1; }
+}
 

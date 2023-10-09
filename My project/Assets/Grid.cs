@@ -128,7 +128,11 @@ public class GridSquare : MonoBehaviour
             // Cambiar el color del objeto en consecuencia
             if (puedeColocarse)
             {
-                objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.green;
+                try
+                {
+                    objeto.getGameObject().GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+                catch { }
                 return cuadrosAOcupar;
             }
             else

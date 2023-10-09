@@ -12,10 +12,9 @@ public class cameraController : MonoBehaviour
     public Transform selected = null;
     Vector3 defaultPosition = new Vector3(-0.84799999f, 3.76999998f, -9.81799984f);
 
-    public GameObject a;
+    public GameObject[] construiblesGO;
     public List<IConstruible> construibles = new List<IConstruible>();
     public IConstruible construibleSeleccionado;
-
 
     public EstadosVista estadoVista;
     public enum EstadosVista : int
@@ -79,7 +78,7 @@ public class cameraController : MonoBehaviour
 
     public void setConstructionObject(int objetoId) {
         var sop = new soporte();
-        sop.setGameObject(Instantiate(a));
+        sop.setGameObject(Instantiate(construiblesGO[objetoId]));
         construibles.Add(sop);
         construibleSeleccionado = sop;
     }

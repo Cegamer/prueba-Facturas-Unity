@@ -711,6 +711,10 @@ PrefabInstance:
       value: sweet_machine (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d0d2cd5f48660164cab03f1c6ed4246d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d0d2cd5f48660164cab03f1c6ed4246d, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1644,7 +1648,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 416566535}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 963194229}
+        m_TargetAssemblyTypeName: cameraController, Assembly-CSharp
+        m_MethodName: setConstructionObject
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &416566535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2108,7 +2124,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 469126547}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 963194229}
+        m_TargetAssemblyTypeName: cameraController, Assembly-CSharp
+        m_MethodName: setConstructionObject
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &469126547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3904,7 +3932,10 @@ MonoBehaviour:
   sensitivity: 5
   velocidadMoviminento: 5
   selected: {fileID: 689218142}
-  a: {fileID: 689218135}
+  construiblesGO:
+  - {fileID: 1752997526}
+  - {fileID: 2481738561002790852}
+  - {fileID: 114811965}
   estadoVista: 2
 --- !u!114 &963194230
 MonoBehaviour:
@@ -8834,6 +8865,10 @@ PrefabInstance:
       value: sweet_machine (1)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d0d2cd5f48660164cab03f1c6ed4246d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d0d2cd5f48660164cab03f1c6ed4246d, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -9650,7 +9685,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2481738561876435928
 Transform:
@@ -9708,7 +9743,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!23 &2481738561876435934
 MeshRenderer:
