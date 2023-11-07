@@ -354,6 +354,7 @@
 "Assets/escaner.cs"
 "Assets/Factura.cs"
 "Assets/Grid.cs"
+"Assets/GridSquare.cs"
 "Assets/MenuPrincipal.cs"
 "Assets/Producto.cs"
 "Assets/simple modular human/scripts/clothing.cs"

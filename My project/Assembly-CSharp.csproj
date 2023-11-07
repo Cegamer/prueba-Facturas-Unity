@@ -68,6 +68,7 @@
     <Compile Include="Assets\Cliente.cs" />
     <Compile Include="Assets\ControladorEscena.cs" />
     <Compile Include="Assets\escaner.cs" />
+    <Compile Include="Assets\GridSquare.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

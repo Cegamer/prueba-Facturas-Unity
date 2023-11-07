@@ -20,6 +20,9 @@ public class cameraController : MonoBehaviour
 
     public EstadosVista estadoVista;
     public GameObject canvasConstruccion;
+    ICreadorConstruibles creadorSoportes = new CreadorSoportes();
+    ICreadorConstruibles creadorCajeros = new CreadorSillas();
+
     public enum EstadosVista : int
     {
         ModoCajero = 0,
@@ -30,11 +33,7 @@ public class cameraController : MonoBehaviour
     void Start()
 
     {
-      
         estadoVista = EstadosVista.ModoCajero;
-        
-
-
     }
 
     // Update is called once per frame
@@ -88,24 +87,16 @@ public class cameraController : MonoBehaviour
         selected.transform.position = worldPosition;
     }
 
-    public void setConstructionObject(int objetoId)
-    {
-        IConstruible sop = null;
-        switch (objetoId)
-        {
-            case 0:
-                sop = new soporteLargo(); break;
-            case 1:
-                sop = new soporteBebidas(); break;
-            case 2:
-                sop = new soporteSnacks(); break;
-        }
+    public void setConstructionObject(int objetoId) {
+        IConstruible construibleActual = null;
         
-        if (sop == null) return;
+        if (objetoId > 2) construibleActual = creadorCajeros.crearConstruible(objetoId);
+        else construibleActual = creadorSoportes.crearConstruible(objetoId);
 
-        sop.setGameObject(Instantiate(construiblesGO[objetoId]));
-        construibles.Add(sop);
-        construibleSeleccionado = sop;
+        construibleActual.setGameObject(Instantiate(construiblesGO[objetoId]));
+        construibleSeleccionado = construibleActual;
+
+        construibles.Add(construibleActual);
     }
 
     public void ModoConstruccion()
@@ -123,9 +114,12 @@ public class cameraController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (selected.GetComponent<GridSquare>().colocar())
+            if (selected.GetComponent<GridSquare>().colocarObjetoConstruible())
                 construibleSeleccionado = null;
+            
         }
+        if(Input.GetMouseButtonDown(1)) { Destroy(construibleSeleccionado.getGameObject()); construibleSeleccionado = null; }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             construibleSeleccionado.rotar(construibleSeleccionado.getEstadoRotacion() + 1);
@@ -170,5 +164,34 @@ public class cameraController : MonoBehaviour
                 break;
         }
     }
+}
+
+interface ICreadorConstruibles {
+    public IConstruible crearConstruible(int objetoId);
+}
+
+public class CreadorSoportes : ICreadorConstruibles {
+    public IConstruible crearConstruible(int objetoId)
+    {
+        {
+            IConstruible sop = null;
+            switch (objetoId)
+            {
+                case 0:
+                    sop = new soporteLargo(); break;
+                case 1:
+                    sop = new soporteBebidas(); break;
+                case 2:
+                    sop = new soporteSnacks(); break;
+            }
+
+            return sop;
+        }
+    }
+}
+
+class CreadorSillas: ICreadorConstruibles { 
+    public IConstruible crearConstruible(int objetoId) { return new Silla(); }
+
 }
 

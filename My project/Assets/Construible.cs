@@ -2,52 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
-
-public class Construible : MonoBehaviour
-{
-}
-
 public interface IConstruible
 {
-
     public void colocar(GridSquare[] cuadrosAOcupar) { }
     public void rotar(int rotado) { }
     public GameObject getGameObject();
     public int getEstadoRotacion();
     public int getCuadrosHorizontal();
     public int getCuadrosVertical();
-    public bool puedeColocarse(GridSquare[] cuadrosAOcupar);
-    public void setGameObject(GameObject go);
-    public void preview();
-
-}
-abstract class soporte : IConstruible
-{
-    public int cuadrosHorizontal;
-    public int cuadrosVertical;
-    public int estadoRotacion = 0;
-    public GameObject objetoConstruible;
-
-    public int getEstadoRotacion() { return estadoRotacion; }
-    public int getCuadrosHorizontal() { return cuadrosHorizontal; }
-    public int getCuadrosVertical() { return cuadrosVertical; }
-
     public bool puedeColocarse(GridSquare[] cuadrosAOcupar)
     {
         foreach (var cuadro in cuadrosAOcupar)
             if (cuadro == null || cuadro.ocupado)
-                return false;    
+                return false;
         return true;
     }
-    public void colocar(GridSquare[] cuadrosAOcupar) { }
-    public virtual void rotar(int rotado)
+    public void setGameObject(GameObject go);
+    public void preview();
+}
+
+public class Silla : IConstruible
+{
+    public int estadoRotacion = 0;
+    public GameObject objetoConstruible;
+    public void preview()
+    {
+        objetoConstruible.transform.localPosition = Vector3.zero;
+    }
+    public void rotar(int rotado)
     {
         if (rotado > 3) rotado = 0;
         estadoRotacion = rotado;
         switch (rotado)
         {
             case 0:
-                objetoConstruible.transform.rotation = Quaternion.Euler(-90,0,0);
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 0, 0);
                 break;
             case 1:
                 objetoConstruible.transform.rotation = Quaternion.Euler(-90, 90, 0);
@@ -60,9 +49,26 @@ abstract class soporte : IConstruible
                 break;
         }
     }
+    public int getEstadoRotacion() { return estadoRotacion; }
+    public int getCuadrosHorizontal() { return 1; }
+    public int getCuadrosVertical() { return 1; }
     public GameObject getGameObject() { return objetoConstruible; }
     public void setGameObject(GameObject go) { objetoConstruible = go; Debug.Log("Definido objeto como " + go); }
+}
+abstract class soporte : IConstruible
+{
+    public int cuadrosHorizontal;
+    public int cuadrosVertical;
+    public int estadoRotacion = 0;
+    public GameObject objetoConstruible;
+
+    public abstract void rotar(int rotado);
     public abstract void preview();
+    public int getEstadoRotacion() { return estadoRotacion; }
+    public int getCuadrosHorizontal() { return cuadrosHorizontal; }
+    public int getCuadrosVertical() { return cuadrosVertical; }
+    public GameObject getGameObject() { return objetoConstruible; }
+    public void setGameObject(GameObject go) { objetoConstruible = go; Debug.Log("Definido objeto como " + go); }
 
 }
 
@@ -71,6 +77,26 @@ class soporteLargo:soporte {
     public override void preview()
     {
         objetoConstruible.transform.localPosition = Vector3.zero;
+    }
+    public override void rotar(int rotado) {
+        if (rotado > 3) rotado = 0;
+        estadoRotacion = rotado;
+        switch (rotado)
+        {
+            case 0:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                break;
+            case 1:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 90, 0);
+                break;
+            case 2:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 180, 0);
+                break;
+            case 3:
+                objetoConstruible.transform.rotation = Quaternion.Euler(-90, 270, 0);
+                break;
+        }
+
     }
 }
 
